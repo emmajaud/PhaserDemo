@@ -1,15 +1,33 @@
-var demo = {};
+var demo = {}, centerX = 1500/2, centerY = 1000/2, Suzy, speed = 10;
 demo.state0 = function(){};
 demo.state0.prototype = {
-    preload: function(){},
+    preload: function(){
+        game.load.image('Suzy', 'assets/sprites/Suzy.png');
+    },
     create: function(){
         game.stage.backgroundColor = '#ff66ff';
         console.log('state0');
-        
         addChangeStateEventListeners();
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+        Suzy = game.add.sprite(centerX, centerY, 'Suzy');
+        Suzy.anchor.setTo(0.5, 0.5);
 
     },
-    update: function(){},
+    update: function(){
+        if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+            Suzy.x += speed;
+        }
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+            Suzy.x -= speed;
+        }
+        if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+            Suzy.y -= speed;
+        }
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+            Suzy.y += speed;
+        }
+    }
 };
 
 function changeState(i, stateNum){
